@@ -1,33 +1,378 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-<title>Welcome to github pages!</title>
-<style>
-    body {
-        width: 35em;
-        margin: 0 auto;
-        font-family: Tahoma, Verdana, Arial, sans-serif;
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博客-忆一世悟一世</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            background-attachment: fixed;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 头部样式 */
+        header {
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo i {
+            font-size: 2.2rem;
+            color: #4dabf7;
+        }
+        
+        .logo h1 {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        /* 导航栏样式 */
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            color: #f8f9fa;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 8px 15px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        nav a:hover {
+            color: #4dabf7;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        nav a.active {
+            color: #4dabf7;
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: #4dabf7;
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::after {
+            width: 70%;
+        }
+        
+        /* 主体内容样式 */
+        main {
+            flex: 1;
+            padding: 60px 0;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            margin-bottom: 60px;
+        }
+        
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #1a2a6c;
+            background: linear-gradient(to right, #1a2a6c, #b21f1f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            color: #495057;
+        }
+        
+        .nor_button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 16px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            -webkit-transition-duration: 0.4s; /* Safari */
+            transition-duration: 0.4s;
+            cursor: pointer;
+        }
+
+        .button1 {
+            background-color: white; 
+            color: black; 
+            border: 2px solid #4CAF50;
+        }
+
+        .button1:hover {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(to right, #1a2a6c, #b21f1f);
+            color: white;
+            padding: 14px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.25);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-card i {
+            font-size: 3rem;
+            color: #4dabf7;
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #1a2a6c;
+        }
+        
+        /* 底部样式 */
+        footer {
+            background: rgba(0, 0, 0, 0.85);
+            color: #f8f9fa;
+            padding: 40px 0 20px;
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: #4dabf7;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: #fdbb2d;
+            border-radius: 3px;
+        }
+        
+        .footer-section p {
+            margin-bottom: 15px;
+            color: #e9ecef;
+        }
+        
+        .footer-section a {
+            color: #e9ecef;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-section a:hover {
+            color: #4dabf7;
+            text-decoration: underline;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #adb5bd;
+            font-size: 0.95rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            nav ul {
+                gap: 15px;
+            }
+            
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .hero {
+                padding: 50px 15px;
+            }
+            
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
 </head>
 <body>
-<h1>Welcome to github pages!</h1>
-<p>If you see this page, the github pages web server is successfully installed and
-working. Further configuration is required.</p>
-
-<p>For online documentation and support please refer to
-<a href="https://github.com/">github</a>.<br/>
-Commercial support is available at
-<a href="https://github.com/">github</a>.</p>
-
-<p><em>Thank you for using github pages.</em></p>
-
-<div class="footer">
-  <p>Power by <a href="https://github.com/">Github Pages</a></p>
-  <p>域名提供商：<a href="https://www.rainyun.com/">润雨科技</a><br/>
-      <a href="https://www.west.cn/">西部数码</a>
-  </p>
-</div>
-
+    <!-- 头部导航 -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fa fa-map"></i>
+                <h1>忆一世悟一世</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">主页</a></li>
+                    <li><a href="#">项目</a></li>
+                    <li><a href="#">关于</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- 主体内容 -->
+    <main class="container">
+        <section class="hero">
+            <h2>你好</h2>
+            <p>这里是忆一世悟一世的个人博客，基于GitHub Pages搭建<br/>你可以了解以下内容：</p>
+        </section>
+        
+        <div class="features">
+            <div class="feature-card">
+                <i class="fa fa-cube"></i>
+                <h3>MC服务器模组</h3>
+                <p>获取模组请点击按钮</p>
+                <a href="#" class="nor_button button1">获取模组</a>
+            </div>
+        </div>
+    </main>
+    
+    <!-- 底部信息 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                
+                <div class="footer-section">
+                    <h3>鸣谢</h3>
+                    <p>HTML托管：<a href="https://github.com/">Github Pages</a></p>
+                    <p>域名提供商：<a href="https://www.rainyun.com/">润雨科技</a></p>
+                    <p>域名提供商：<a href="https://www.west.cn/">西部数码</a></p>
+                    <p>代码：<a href="">DeepSeek</a>  AI太好用了你们知道吗</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 忆一世悟一世 | 保留所有权利</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
