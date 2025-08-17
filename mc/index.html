@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>项目-Minecraft服务器</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            background-attachment: fixed;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 头部样式 */
+        header {
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo i {
+            font-size: 2.2rem;
+            color: #4dabf7;
+        }
+        
+        .logo h1 {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        /* 导航栏样式 */
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            color: #f8f9fa;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 8px 15px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        nav a:hover {
+            color: #4dabf7;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        nav a.active {
+            color: #4dabf7;
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: #4dabf7;
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::after {
+            width: 70%;
+        }
+        
+        /* 主体内容样式 */
+        main {
+            flex: 1;
+            padding: 60px 0;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            margin-bottom: 60px;
+        }
+        
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #1a2a6c;
+            background: linear-gradient(to right, #1a2a6c, #b21f1f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            color: #495057;
+        }
+        
+        .nor_button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 16px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            -webkit-transition-duration: 0.4s; /* Safari */
+            transition-duration: 0.4s;
+            cursor: pointer;
+        }
+
+        .button1 {
+            background-color: white; 
+            color: black; 
+            border: 2px solid #4CAF50;
+        }
+
+        .button1:hover {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(to right, #1a2a6c, #b21f1f);
+            color: white;
+            padding: 14px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.25);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-card i {
+            font-size: 3rem;
+            color: #4dabf7;
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #1a2a6c;
+        }
+        
+        /* 底部样式 */
+        footer {
+            background: rgba(0, 0, 0, 0.85);
+            color: #f8f9fa;
+            padding: 40px 0 20px;
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: #4dabf7;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: #fdbb2d;
+            border-radius: 3px;
+        }
+        
+        .footer-section p {
+            margin-bottom: 15px;
+            color: #e9ecef;
+        }
+        
+        .footer-section a {
+            color: #e9ecef;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-section a:hover {
+            color: #4dabf7;
+            text-decoration: underline;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #adb5bd;
+            font-size: 0.95rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            nav ul {
+                gap: 15px;
+            }
+            
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .hero {
+                padding: 50px 15px;
+            }
+            
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部导航 -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fa fa-map"></i>
+                <h1>忆一世悟一世</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="https://serveryyswys.top/home">主页</a></li>
+                    <li><a href="https://serveryyswys.top/project">项目</a></li>
+                    <li><a href="https://serveryyswys.top/about">关于</a></li>
+                    <li><a href="https://serveryyswys.top/mc" class="active">当前页面</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- 主体内容 -->
+    <main class="container">
+        <section class="hero">
+            <h2><i class="fa fa-cube"></i><br>Minecraft服务器</h2>
+            <p>感谢游玩Minecraft服务器，在进入服务器之前，请先阅读以下内容：<br>
+            该服务器由<a href="https://www.rainyun.com/">雨云</a>提供的E5-2666v3游戏云搭建，预计勉强能撑下20个玩家，使用Arclight服务端，支持Forge模组和Bukkit插件，游戏版本为1.20.1<br>
+            服务器是轻规则服，规则如下：<br>
+            1.不要在聊天栏处开骂<br>
+            2.开挂适度，若发现大量占用服务器资源，则踢<br>
+            3.对于炸服熊服行为，直接封禁</p>
+        </section>
+        
+        <div class="features">
+            <div class="feature-card">
+                <i class="fa fa-download"></i>
+                <h3>获取服务器模组</h3>
+                <a href="https://github.com/yyswys-yjyj/yyswys-yjyj.github.io/releases/download/Mods/250817mods.zip" class="nor_button button1">下载模组</a>
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="feature-card">
+                <i class="fa fa-info-circle"></i>
+                <h3>查看服务器状态</h3>
+                <a href="https://xclcserver.instatus.com/zh" class="nor_button button1">查看状态</a>
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="feature-card">
+                <i class="fa fa-folder"></i>
+                <h3>查看旧版服务器模组表单</h3>
+                <a href="https://netcut.cn/p/e457a3156763809a" class="nor_button button1">跳转页面</a>
+            </div>
+        </div>
+
+        <br>
+        <br>
+        <br>
+        <section class="hero">
+            <h2><i class="fa fa-sign-in"></i><br>加入服务器</h2>
+            <h1>>服务器地址<</h1>
+            <h2>gm.rainplay.cn:47738</h2>
+            <h1>星辰落锤服务器</h1>
+        </section>
+
+    </main>
+    
+    <!-- 底部信息 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                
+                <div class="footer-section">
+                    <h3>鸣谢</h3>
+                    <p>HTML托管：<a href="https://github.com/">Github Pages</a></p>
+                    <p>域名提供商：<a href="https://www.rainyun.com/">润雨科技</a></p>
+                    <p>域名提供商：<a href="https://www.west.cn/">西部数码</a></p>
+                    <p>代码：<a href="">DeepSeek</a>  AI太好用了你们知道吗</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 忆一世悟一世 | 保留所有权利</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
