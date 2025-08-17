@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>项目</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            background-attachment: fixed;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 头部样式 */
+        header {
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo i {
+            font-size: 2.2rem;
+            color: #4dabf7;
+        }
+        
+        .logo h1 {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        /* 导航栏样式 */
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        nav a {
+            color: #f8f9fa;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 8px 15px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        nav a:hover {
+            color: #4dabf7;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        nav a.active {
+            color: #4dabf7;
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: #4dabf7;
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::after {
+            width: 70%;
+        }
+        
+        /* 主体内容样式 */
+        main {
+            flex: 1;
+            padding: 60px 0;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            margin-bottom: 60px;
+        }
+        
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #1a2a6c;
+            background: linear-gradient(to right, #1a2a6c, #b21f1f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            color: #495057;
+        }
+        
+        .nor_button {
+            background-color: #4CAF50; 
+            border: none;
+            color: white;
+            padding: 16px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            border-radius: 30px;
+        }
+
+        .button1 {
+            background-color: white; 
+            color: black; 
+            border: 2px solid #4CAF50;
+        }
+
+        .button1:hover {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .button2 {
+            background-color: white; 
+            color: black; 
+            border: 2px solid #2196F3;
+        }
+
+        .button2:hover {
+            background-color: #2196F3;
+            color: white;
+        }
+        
+        .button3 {
+            background-color: white; 
+            color: black; 
+            border: 2px solid #f44336;
+        }
+
+        .button3:hover {
+            background-color: #f44336;
+            color: white;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(to right, #1a2a6c, #b21f1f);
+            color: white;
+            padding: 14px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.25);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-card i {
+            font-size: 3rem;
+            color: #4dabf7;
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #1a2a6c;
+        }
+        
+        /* 项目页面特定样式 */
+        .projects-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .projects-header h2 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            color: #1a2a6c;
+            background: linear-gradient(to right, #1a2a6c, #b21f1f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .projects-header p {
+            font-size: 1.2rem;
+            color: #495057;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .project-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .project-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(26, 42, 108, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+        
+        .project-overlay a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .project-overlay a:hover {
+            transform: translateY(-5px);
+        }
+        
+        .project-content {
+            padding: 25px;
+        }
+        
+        .project-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: #1a2a6c;
+        }
+        
+        .project-content p {
+            color: #495057;
+            margin-bottom: 20px;
+            min-height: 80px;
+        }
+        
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .project-tags span {
+            background: #e9ecef;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #495057;
+        }
+        
+        /* 项目类别筛选 */
+        .project-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: #1a2a6c;
+            color: white;
+        }
+        
+        /* 底部样式 */
+        footer {
+            background: rgba(0, 0, 0, 0.85);
+            color: #f8f9fa;
+            padding: 40px 0 20px;
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: #4dabf7;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: #fdbb2d;
+            border-radius: 3px;
+        }
+        
+        .footer-section p {
+            margin-bottom: 15px;
+            color: #e9ecef;
+        }
+        
+        .footer-section a {
+            color: #e9ecef;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-section a:hover {
+            color: #4dabf7;
+            text-decoration: underline;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #adb5bd;
+            font-size: 0.95rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            nav ul {
+                gap: 15px;
+            }
+            
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .hero {
+                padding: 50px 15px;
+            }
+            
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+            
+            .project-filters {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部导航 -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fa fa-map"></i>
+                <h1>忆一世悟一世</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="https://serveryyswys.top/home/">主页</a></li>
+                    <li><a href="https://serveryyswys.top/project/" class="active">项目</a></li>
+                    <li><a href="#">关于</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- 项目页面主体内容 -->
+    <main class="container">
+        <div class="projects-header">
+            <p><br/><font color="white"><b><h1>项目</h1></b></font></p>
+        </div>
+        
+        <!-- 项目网格 -->
+        <div class="project-grid">
+            <!-- 项目1 -->
+            <div class="project-card">
+                <div class="project-image" style="background-image:/mcs.jpg;">
+                    <div class="project-overlay">
+                        <a href="https://serveryyswys.top/mc/"><i class="fas fa-external-link-alt"></i></a>
+                        <a href="/250817mods.zip" download="/250817mods.zip"><i class="fas fa-download"></i></a>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <h3>Minecraft服务器</h3>
+                    <p>公益服，使用Arclight1.20.1运行，支持插件与模组<br/>有规则服务器：<br/>本服务器不允许开挂，但允许矿物透视（小地图模组导致的），玩家之间以礼相待，若有炸服、熊服的行为，将会被永久封禁<br/>整活插件随时有可能会安装<br/>服务器详情点击<a href="https://xclcserver.instatus.com/zh">这里</a>查看</p>
+                    <div class="project-meta">
+                        <div class="project-tags">
+                            <span>Minecraft服务器</span>
+                            <span>模组下载</span>
+                        </div>
+                        <div class="project-version">
+                            v1.20.1
+                        </div>
+                    </div>
+                    <a href="https://serveryyswys.top/mc/" class="nor_button button1">查看详情</a>
+                </div>
+            </div>
+            
+        </div>
+    </main>
+    
+    <!-- 底部信息 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                
+                <div class="footer-section">
+                    <h3>鸣谢</h3>
+                    <p>HTML托管：<a href="https://github.com/">Github Pages</a></p>
+                    <p>域名提供商：<a href="https://www.rainyun.com/">润雨科技</a></p>
+                    <p>域名提供商：<a href="https://www.west.cn/">西部数码</a></p>
+                    <p>代码：<a href="">DeepSeek</a>  AI太好用了你们知道吗</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 忆一世悟一世 | 保留所有权利</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
